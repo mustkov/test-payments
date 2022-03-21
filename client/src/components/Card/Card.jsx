@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { InputNumber, Space } from "antd";
 import Date from "../Date/Date";
 import "antd/dist/antd.css";
-import { useIsMount } from "../../Hooks/useIsMount";
+import { useIsMount } from "../Hooks/useIsMount";
 import { dropDatas } from "../../actions/dropDatas";
 
 const dataSample = {
@@ -54,60 +54,54 @@ export default function Card() {
 
   return (
     <form
-      className="form"
+      className="card"
       onSubmit={(e) => {
         handleSubmit(e);
       }}
     >
-      <Space direction="vertical" size={35}>
+      <Space direction="vertical" size={30}>
         <Space direction="vertical" size={0}>
           <InputNumber
-            style={{ width: "100%" }}
+            style={{ width: "300px" }}
             controls={false}
             onChange={(e) => setData({ ...data, cardNumber: e })}
             maxLength={16}
+            placeholder="Card Number"
           />
           {validCard && (
-            <div
-              style={{
-                fontWeight: "bold",
-                color: "red",
-              }}
-            >
-              Некорректно введены данные карты!
-            </div>
+            <div className="alert">Некорректно введены данные карты!</div>
           )}
         </Space>
-        <Space direction="horizontal">
+        <Space
+          direction="horizontal"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
           <Date onChange={onChange} />
-          <InputNumber
-            style={{ width: "50%" }}
-            controls={false}
-            onChange={(e) => setData({ ...data, cvv: e })}
-            maxLength={3}
-          />
-          {validCvv && (
-            <div
-              style={{
-                fontWeight: "bold",
-                color: "red",
-              }}
-            >
-              Некорректно введены данные CVV!
-            </div>
-          )}
+          <div>
+            <InputNumber
+              style={{ width: "50%" }}
+              controls={false}
+              onChange={(e) => setData({ ...data, cvv: e })}
+              maxLength={3}
+              placeholder="CVV"
+            />
+          </div>
         </Space>
+        {validCvv && (
+          <div className="alert">Некорректно введены данные CVV!</div>
+        )}
         <InputNumber
           style={{ width: "50%" }}
           controls={false}
           onChange={(e) => setData({ ...data, amount: e })}
+          placeholder="Amount"
         />
         <button
           disabled={
             validCard || validCvv || data.date === "" || data.amount === null
           }
         >
-          Оплатить!
+          Оплатить
         </button>
       </Space>
     </form>

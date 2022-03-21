@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./components/Card/Card";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
