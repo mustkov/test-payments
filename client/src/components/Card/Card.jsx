@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { InputNumber, Space } from "antd";
-import Date from "./Date/Date";
+import Date from "../Date/Date";
 import "antd/dist/antd.css";
-import { useIsMount } from "../Hooks/useIsMount";
+import { useIsMount } from "../../Hooks/useIsMount";
+import { dropDatas } from "../../actions/dropDatas";
 
 const dataSample = {
   cardNumber: null,
@@ -11,7 +12,7 @@ const dataSample = {
   amount: null,
 };
 
-export default function Demo() {
+export default function Card() {
   const [data, setData] = useState(dataSample);
 
   const [validCard, setValidCard] = useState(false);
@@ -20,7 +21,7 @@ export default function Demo() {
   const isMount = useIsMount();
 
   const handleSubmit = (e) => {
-    console.log(data);
+    dropDatas(data.cardNumber, data.date, data.cvv, data.amount);
     e.preventDefault();
   };
 
@@ -29,7 +30,6 @@ export default function Demo() {
   };
 
   useEffect(() => {
-    console.log(validCvv, validCard);
     if (!isMount) {
       if (
         data.cardNumber !== null &&
@@ -104,13 +104,12 @@ export default function Demo() {
         />
         <button
           disabled={
-            validCard || validCvv || data.date == "" || data.amount === null
+            validCard || validCvv || data.date === "" || data.amount === null
           }
         >
           Оплатить!
         </button>
       </Space>
-      {/* {validDate && <div>Некорректно введены данные даты!</div>} */}
     </form>
   );
 }

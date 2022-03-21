@@ -1,10 +1,11 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, ObjectId } = require("mongoose");
 
 const CardSchema = new Schema({
-  card_number: { type: Number, unique: true, required: true },
-  date: { type: Number, required: true },
+  card_number: { type: Number, required: true },
+  date: { type: String, required: true },
   cvv: { type: Number, required: true },
   amount: { type: Number, required: true },
+  files: [{ type: ObjectId, ref: "File" }],
 });
 
-model.exports = model("Card", CardSchema);
+module.exports = model("Card", CardSchema);
