@@ -38,6 +38,7 @@ npm start
 #### Сервер:
 ```
 cd server
+Создать .env PORT=ваш порт DB_URL=ссылка на DB
 npm install
 npm run dev
 ```
